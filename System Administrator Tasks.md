@@ -160,3 +160,55 @@ SELINUX=disabled
 SELINUX=disabled
 
 ```
+## Task 06 - Testing Cron Job Deployment on All App Servers
+
+The Nautilus system admins team has prepared scripts to automate several day-to-day tasks.  
+They want them to be deployed on all app servers in Stratos DC on a set schedule.  
+Before that, they need to test similar functionality with a sample cron job.  
+
+### Requirements
+1. **Install `cronie` package** on all Nautilus app servers and start the `crond` service.
+2. **Add a cron job** for the `root` user to run every 5 minutes:
+
+
+---
+
+### Implementation Steps
+
+#### App Server 1 (`stapp01`)
+```bash
+thor@jumphost ~$ ssh tony@stapp01
+tony@stapp01's password: 
+[tony@stapp01 ~]$ sudo yum install -y cronie
+[sudo] password for tony: 
+[tony@stapp01 ~]$ sudo systemctl start crond
+[tony@stapp01 ~]$ sudo systemctl enable crond
+[tony@stapp01 ~]$ sudo crontab -e
+# (added the cron job)
+[tony@stapp01 ~]$ sudo crontab -l
+*/5 * * * * echo hello > /tmp/cron_text
+logout
+
+thor@jumphost ~$ ssh steve@stapp02
+steve@stapp02's password: 
+[steve@stapp02 ~]$ sudo yum install -y cronie
+[sudo] password for steve: 
+[steve@stapp02 ~]$ sudo systemctl start crond
+[steve@stapp02 ~]$ sudo systemctl enable crond
+[steve@stapp02 ~]$ sudo crontab -e
+# (added the cron job)
+[steve@stapp02 ~]$ sudo crontab -l
+*/5 * * * * echo hello > /tmp/cron_text
+logout
+
+thor@jumphost ~$ ssh banner@stapp03
+banner@stapp03's password: 
+[banner@stapp03 ~]$ sudo yum install -y cronie
+[sudo] password for banner: 
+[banner@stapp03 ~]$ sudo systemctl start crond
+[banner@stapp03 ~]$ sudo systemctl enable crond
+[banner@stapp03 ~]$ sudo crontab -e
+# (added the cron job)
+[banner@stapp03 ~]$ sudo crontab -l
+*/5 * * * * echo hello > /tmp/cron_text
+---
