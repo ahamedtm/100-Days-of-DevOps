@@ -23,3 +23,92 @@ javed:x:1002:1002::/home/javed:/bin/false
 ```
 
 > Replace `javed` with `username` and ensure the task is done on `givenapp` server.
+
+## Task 02 - Create Temporary User with Expiry Date
+
+As part of the temporary assignment to the Nautilus project, a developer named **ravi** requires access for a limited duration. To ensure smooth access management, a temporary user account with an expiry date is needed.
+
+**Requirement:**
+- Create a user named `ravi` on **App Server 2** in **Stratos Datacenter**.
+- Set the expiry date to **2024-03-28**.
+- Ensure the username is lowercase as per standard protocol.
+
+**Steps:**
+```bash
+thor@jumphost ~$ ssh steve@stapp02
+steve@stapp02's password: 
+
+[steve@stapp02 ~]$ sudo useradd -e 2024-03-28 ravi
+[sudo] password for steve: 
+
+[steve@stapp02 ~]$ sudo chage -l ravi
+Last password change                                    : Aug 11, 2025
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : Mar 28, 2024
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7
+```
+
+---
+
+## Task 03 - Disable Direct Root SSH Login
+
+Following security audits, the **xFusionCorp Industries** security team has rolled out new protocols, including the restriction of direct root SSH login.
+
+**Requirement:**
+- Disable direct root SSH login on **all app servers** in the Stratos Datacenter.
+
+**Steps:**
+
+**App Server 1**
+```bash
+thor@jumphost ~$ ssh tony@stapp01
+tony@stapp01's password: 
+
+[tony@stapp01 ~]$ sudo vi /etc/ssh/sshd_config
+[sudo] password for tony: 
+
+[tony@stapp01 ~]$ sudo service sshd restart
+Redirecting to /bin/systemctl restart sshd.service
+
+[tony@stapp01 ~]$ sudo grep -i permitrootlogin /etc/ssh/sshd_config
+PermitRootLogin no
+# the setting of "PermitRootLogin without-password".
+logout
+Connection to stapp01 closed.
+```
+
+**App Server 2**
+```bash
+thor@jumphost ~$ ssh steve@stapp02
+steve@stapp02's password: 
+
+[steve@stapp02 ~]$ sudo vi /etc/ssh/sshd_config
+[sudo] password for steve: 
+
+[steve@stapp02 ~]$ sudo service sshd restart
+Redirecting to /bin/systemctl restart sshd.service
+
+[steve@stapp02 ~]$ sudo grep -i permitrootlogin /etc/ssh/sshd_config
+PermitRootLogin no
+# the setting of "PermitRootLogin without-password".
+```
+
+**App Server 3**
+```bash
+[steve@stapp02 ~]$ ssh banner@stapp03
+banner@stapp03's password: 
+
+[banner@stapp03 ~]$ sudo vi /etc/ssh/sshd_config
+[sudo] password for banner: 
+
+[banner@stapp03 ~]$ sudo service sshd restart
+Redirecting to /bin/systemctl restart sshd.service
+
+[banner@stapp03 ~]$ sudo grep -i permitrootlogin /etc/ssh/sshd_config
+PermitRootLogin no
+# the setting of "PermitRootLogin without-password".
+```
+
