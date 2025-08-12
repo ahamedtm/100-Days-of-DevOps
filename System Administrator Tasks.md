@@ -175,7 +175,6 @@ Before that, they need to test similar functionality with a sample cron job.
 
 ### Implementation Steps
 
-#### App Server 1 (`stapp01`)
 ```bash
 thor@jumphost ~$ ssh tony@stapp01
 tony@stapp01's password: 
