@@ -112,3 +112,51 @@ PermitRootLogin no
 # the setting of "PermitRootLogin without-password".
 ```
 
+# Task 04 - Grant Executable Permissions
+
+In a bid to automate backup processes, the xFusionCorp Industries sysadmin team has developed a new bash script named `xfusioncorp.sh`. While the script has been distributed to all necessary servers, it lacks executable permissions on **App Server 2** within the **Stratos Datacenter**.
+
+**Objective:**  
+Grant executable permissions to `/tmp/xfusioncorp.sh` on App Server 2, ensuring all users can execute it.
+
+### Steps:
+
+```bash
+thor@jumphost ~$ ssh steve@stapp02
+steve@stapp02's password:
+[steve@stapp02 ~]$ sudo chmod 755 /tmp/xfusioncorp.sh
+[sudo] password for steve:
+[steve@stapp02 ~]$ ls -l /tmp/xfusioncorp.sh
+-rwxr-xr-x 1 root root 40 Aug 11 05:19 /tmp/xfusioncorp.sh
+[steve@stapp02 ~]$
+
+```
+
+# Task 05 - SELinux Installation & Configuration
+
+Following a security audit, the xFusionCorp Industries security team has decided to enhance application and server security with SELinux. For App Server 3 in the Stratos Datacenter, the following requirements were set:
+
+**Objective:**  
+Install the required SELinux packages.
+
+Permanently disable SELinux (for now; it will be re-enabled after configuration changes).
+
+No reboot required immediately (a scheduled maintenance reboot will happen tonight).
+
+The SELinux status after the reboot should be disabled.
+
+### Steps:
+
+```bash
+thor@jumphost ~$ ssh banner@stapp03
+banner@stapp03's password:
+[banner@stapp03 ~]$ sudo yum install -y selinux-policy-targeted policycoreutils
+[sudo] password for banner:
+# [Installation output ]
+[banner@stapp03 ~]$ sudo vi /etc/selinux/config
+# Change the line to:
+SELINUX=disabled
+[banner@stapp03 ~]$ grep ^SELINUX= /etc/selinux/config
+SELINUX=disabled
+
+```
