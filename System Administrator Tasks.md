@@ -137,13 +137,13 @@ steve@stapp02's password:
 Following a security audit, the xFusionCorp Industries security team has decided to enhance application and server security with SELinux. For App Server 3 in the Stratos Datacenter, the following requirements were set:
 
 **Objective:**  
-Install the required SELinux packages.
+- Install the required SELinux packages.
 
-Permanently disable SELinux (for now; it will be re-enabled after configuration changes).
+- Permanently disable SELinux (for now; it will be re-enabled after configuration changes).
 
-No reboot required immediately (a scheduled maintenance reboot will happen tonight).
+- No reboot required immediately (a scheduled maintenance reboot will happen tonight).
 
-The SELinux status after the reboot should be disabled.
+- The SELinux status after the reboot should be disabled.
 
 ### Steps:
 
