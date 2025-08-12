@@ -210,4 +210,4 @@ banner@stapp03's password:
 # (added the cron job)
 [banner@stapp03 ~]$ sudo crontab -l
 */5 * * * * echo hello > /tmp/cron_text
----
+
